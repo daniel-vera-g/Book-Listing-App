@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Book-Listing-App</string>
+    <string name="EditTextDescription">Search for a certain Book</string>
+    <string name="searchButton">Search</string>
+    <string name="noInternetConnection">Please check your Internet Connection</string>
+    <string name="resultText">Here are some results for your query: </string>
 </resources>
