@@ -164,6 +164,7 @@ public class QueryUtils {
                 //extract the Array with the Name of the Author or authors
                 JSONArray authors = VolumeInfo.getJSONArray("authors");
                 //loop through the array of authors and get all the authors
+                //ToDo Fix how to get the author from the authors array
                 for (int j = 0; j < authors.length(); j++){
                     String author = authors.getString();
                 }
@@ -175,6 +176,7 @@ public class QueryUtils {
                 String previewLink = VolumeInfo.getString("previewLink");
 
                 //Create a new Book Object to store the values in
+                //ToDo add the author to the constructor
                 Book newBook = new Book(title, subtitle, , publishedDate, numberPages, previewLink);
                 books.add(newBook);
             }
