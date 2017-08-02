@@ -119,5 +119,8 @@ public class QueryUtils {
         return output.toString();
     }
 
-    
+    /**
+     * Method to extraxt the important features from the given Json response
+     * */
+    //private static void List<>
 }
