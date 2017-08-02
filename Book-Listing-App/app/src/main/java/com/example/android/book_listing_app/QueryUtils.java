@@ -4,7 +4,12 @@ package com.example.android.book_listing_app;
  * Created by DanielVG on 02.08.17.
  */
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +19,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.attr.author;
 
 /** Helper methods to receive the information requested from the Google Books API*/
 public class QueryUtils {
@@ -122,5 +131,60 @@ public class QueryUtils {
     /**
      * Method to extraxt the important features from the given Json response
      * */
-    //private static void List<>
+    private static List<Book> extractFeaturesfromJson(String jsonBookResponse){
+        //return early if the String response is empty
+        if (TextUtils.isEmpty(jsonBookResponse)){
+            return null;
+        }
+
+        //create an empty list to add the Book informations to
+        List<Book> books = new ArrayList<>();
+
+        //parse the json response and extract the important features
+        //if there is a problem fire up the exception
+        try {
+            //create new book Objects to store the data to
+
+            //create Json Object with the Json response in it
+            JSONObject bookRootInfo = new JSONObject(jsonBookResponse);
+            //extract the  items Array from the Root to looop through it and get the information
+            JSONArray items = bookRootInfo.getJSONArray("items");
+            //loop through the Json array of items to get the important imformation about the book
+            for (int i = 0; i < items.length(); i++){
+                //create an Book object for the item at the position i
+                JSONObject Book = items.getJSONObject(i);
+                //extract the volume Info Object from the Book Object
+                JSONObject VolumeInfo = Book.getJSONObject("volumeInfo");
+
+
+                //extract the title of the book
+                String title = VolumeInfo.getString("title");
+                //extract the subtitle
+                String subtitle = VolumeInfo.getString("subtitle");
+                //extract the Array with the Name of the Author or authors
+                JSONArray authors = VolumeInfo.getJSONArray("authors");
+                //loop through the array of authors and get all the authors
+                for (int j = 0; j < authors.length(); j++){
+                    String author = authors.getString();
+                }
+                //extract the published Date
+                String publishedDate = VolumeInfo.getString("publishedDate");
+                //extract the number of pages
+                int numberPages = VolumeInfo.getInt("pageCount");
+                //etract the link to preview the book
+                String previewLink = VolumeInfo.getString("previewLink");
+
+                //Create a new Book Object to store the values in
+                Book newBook = new Book(title, subtitle, , publishedDate, numberPages, previewLink);
+                books.add(newBook);
+            }
+
+        }catch (JSONException e){
+            //if there is some erro while executing the try block throw the exception
+            //this helps the app not to crash and prints a log message
+            Log.e(LOG_TAG, "Problem with parsing the Book JSON response", e);
+        }
+        //return a list of books
+        return books;
+    }
 }
