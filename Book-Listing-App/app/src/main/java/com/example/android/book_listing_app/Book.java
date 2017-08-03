@@ -5,7 +5,7 @@ package com.example.android.book_listing_app;
  */
 
 public class Book {
-    public Book(String title, String subtitle, int author, String publishedDate, int numberPages, String previewLink) {
 
+    public Book(String title, String subtitle, String author, String publishedDate, int numberPages, String previewLink) {
     }
 }

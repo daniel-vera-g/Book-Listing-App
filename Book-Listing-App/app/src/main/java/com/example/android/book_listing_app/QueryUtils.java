@@ -15,11 +15,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.R.attr.author;
@@ -161,13 +163,21 @@ public class QueryUtils {
                 String title = VolumeInfo.getString("title");
                 //extract the subtitle
                 String subtitle = VolumeInfo.getString("subtitle");
+
                 //extract the Array with the Name of the Author or authors
                 JSONArray authors = VolumeInfo.getJSONArray("authors");
                 //loop through the array of authors and get all the authors
-                //ToDo Fix how to get the author from the authors array
+                //Define aa Array of Strings to store the JSON Array values
+                ArrayList<String> listOfAuthors = new ArrayList<String>();
+                //Loop through the JSON Array and assign each JSON Array value to the Array of Strings
                 for (int j = 0; j < authors.length(); j++){
-                    String author = authors.getString();
+                    //assign the value of the JSON Array to the Array of strings
+                    listOfAuthors.add(authors.getString(j));
                 }
+                //save list of auhtors in from ArrayList into single Strings to give it as parameter in the Book Object Invocation
+                String author = TextUtils.join(", ", listOfAuthors);
+
+
                 //extract the published Date
                 String publishedDate = VolumeInfo.getString("publishedDate");
                 //extract the number of pages
@@ -176,8 +186,7 @@ public class QueryUtils {
                 String previewLink = VolumeInfo.getString("previewLink");
 
                 //Create a new Book Object to store the values in
-                //ToDo add the author to the constructor
-                Book newBook = new Book(title, subtitle, , publishedDate, numberPages, previewLink);
+                Book newBook = new Book(title, subtitle, author, publishedDate, numberPages, previewLink);
                 books.add(newBook);
             }
 
