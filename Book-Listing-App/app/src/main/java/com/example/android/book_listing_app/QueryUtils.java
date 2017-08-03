@@ -15,26 +15,50 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static android.R.attr.author;
 
 /** Helper methods to receive the information requested from the Google Books API*/
 public class QueryUtils {
 
     /** Tag for the log messages*/
-    public static final String LOG_TAG = QueryUtils.class.getName();
+    private static final String LOG_TAG = QueryUtils.class.getName();
 
     /** Empty constructor because Class should only hold methods and and work with the API*/
     public QueryUtils(){
 
+    }
+
+    /**
+     * Helper methods that:
+     * creates url
+     * sends a request to the server
+     * receives the response from the server
+     * */
+    public static List<Book> fetchBookData(String requestUrl){
+        //create the URL object to make an request to the server
+        URL url = createURL(requestUrl);
+
+        //make http request to the server
+        //define String fro the Json response
+        String jsonResponse = null;
+
+        //try catch block to make http request
+        try {
+            jsonResponse = makeHttpRequest(url);
+        }catch (IOException e){
+            Log.e(LOG_TAG, "The problem making the App is: " + e);
+        }
+
+        //create List of Books and extract the relevant information from the Json response
+        List<Book> books = extractFeaturesfromJson(jsonResponse);
+
+        //return the list of Books
+        return books;
     }
 
     /** method to return a URL Object from the given url*/
@@ -90,7 +114,8 @@ public class QueryUtils {
         }catch (IOException e){
             //log tag for the IOException
             Log.e(LOG_TAG, "Problem receiving the google books Json response", e);
-        }finally {
+        }
+        finally {
             //if request has ended disconnect and close the input stream
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -98,10 +123,9 @@ public class QueryUtils {
             if (inputStream != null){
                 inputStream.close();
             }
-            //return the json response
-            return jsonResponse;
         }
-
+        //return the json response
+        return jsonResponse;
     }
 
     /**
@@ -168,7 +192,7 @@ public class QueryUtils {
                 JSONArray authors = VolumeInfo.getJSONArray("authors");
                 //loop through the array of authors and get all the authors
                 //Define aa Array of Strings to store the JSON Array values
-                ArrayList<String> listOfAuthors = new ArrayList<String>();
+                ArrayList<String> listOfAuthors = new ArrayList<>();
                 //Loop through the JSON Array and assign each JSON Array value to the Array of Strings
                 for (int j = 0; j < authors.length(); j++){
                     //assign the value of the JSON Array to the Array of strings
