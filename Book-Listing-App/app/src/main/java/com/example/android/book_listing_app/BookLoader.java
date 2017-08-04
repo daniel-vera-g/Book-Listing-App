@@ -46,7 +46,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
         }
         //make the Network request
         //parse the response
-        //extract a list of earthquakes
+        //extract a list of booksx  
         List<Book> books = QueryUtils.fetchBookData(mUrl);
         return books;
     }
