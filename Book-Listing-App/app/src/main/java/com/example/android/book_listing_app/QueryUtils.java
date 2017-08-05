@@ -41,7 +41,7 @@ public class QueryUtils {
      * */
     public static List<Book> fetchBookData(String requestUrl){
         //create the URL object to make an request to the server
-        URL url = createURL(requestUrl);
+            URL url = createURL(requestUrl);
 
         //make http request to the server
         //define String fro the Json response

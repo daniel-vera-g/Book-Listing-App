@@ -37,11 +37,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //make reference of the connectivity manager so I can check the netwrok status
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
         //get details about the current network status
         NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
         //check for connection and then fetch data
         if (networkInfo != null && networkInfo.isConnected()){
             //get a reference of the loader manager
+            Log.v(LOG_TAG, "LOG: The loader manager will start");
             LoaderManager loaderManager = getLoaderManager();
 
             //Initialize the loader
