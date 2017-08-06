@@ -39,6 +39,11 @@ public class QueryUtils {
      * sends a request to the server
      * receives the response from the server
      * */
+    /**
+     *
+     * @param requestUrl
+     * @return list of Books
+     */
     public static List<Book> fetchBookData(String requestUrl){
         //create the URL object to make an request to the server
             URL url = createURL(requestUrl);
@@ -62,6 +67,11 @@ public class QueryUtils {
     }
 
     /** method to return a URL Object from the given url*/
+    /**
+     *
+     * @param stringUrl
+     * @return url
+     */
     public static URL createURL(String stringUrl){
         //declare URL object
         URL url = null;
@@ -77,6 +87,12 @@ public class QueryUtils {
     }
 
     /** make a http response to the server and return a string response*/
+    /**
+     *
+     * @param url
+     * @return string Response
+     * @throws IOException
+     */
     private static String makeHttpRequest(URL url) throws IOException{
         //declare JSON response
         String jsonResponse = "";
@@ -132,6 +148,12 @@ public class QueryUtils {
      * convert the input stream into a string
      * and return the JSON response from the server
      * */
+    /**
+     *
+     * @param inputStream
+     * @return json Response
+     * @throws IOException
+     */
     private static String readFromInputStream(InputStream inputStream) throws IOException{
         //create new StringBuilder Object
         StringBuilder output = new StringBuilder();
@@ -157,6 +179,11 @@ public class QueryUtils {
     /**
      * Method to extraxt the important features from the given Json response
      * */
+    /**
+     *
+     * @param jsonBookResponse
+     * @return Book woth given properties
+     */
     private static List<Book> extractFeaturesfromJson(String jsonBookResponse){
         //return early if the String response is empty
         if (TextUtils.isEmpty(jsonBookResponse)){
