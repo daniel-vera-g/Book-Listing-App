@@ -237,7 +237,7 @@ public class QueryUtils {
                 String previewLink = VolumeInfo.getString("previewLink");
 
                 //Create a new Book Object to store the values in
-                Book newBook = new Book(title, subtitle, author, publishedDate, numberPages, previewLink);
+                Book newBook = new   Book(title, subtitle, author, publishedDate, numberPages, previewLink);
                 books.add(newBook);
             }
 
