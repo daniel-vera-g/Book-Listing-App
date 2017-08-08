@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //create new Adapter that takes an empty list of Books as Input
         mAdapter = new BookAdapter(this, new ArrayList<Book>());
 
-        //set the adapter to the Listview
-        //This leads to the population of the user Interface
-        bookListView.setAdapter(mAdapter);
 
         //set an itemOnClick Listener to when the user push the button
         //This leads to a request to the browser with the query and  list ob Books as a response
@@ -92,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             //if there is no internet connection avalaible display en erro
             //TODO: Implement a loading indicatorn and set an empty textView to get the user know that there is no internet connection
         }
+        //set the adapter to the Listview
+        //This leads to the population of the user Interface
+        bookListView.setAdapter(mAdapter);
     }
 
     @Override
