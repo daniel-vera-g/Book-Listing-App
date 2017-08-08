@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +41,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     //empty Textview to be displayed when there is no Internet connection
     public TextView emptyTextView;
 
-
-
+    /**
+     * onCreate Method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +64,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //set an itemOnClick Listener to when the user push the button
         //This leads to a request to the browser with the query and  list ob Books as a response
-        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        /*bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //find the Button in the Layout
+                    //find the Button in the Layout
                 Button requestButon = (Button) findViewById(R.id.searchButton);
 
-                //TODO: Start the request to the server
+
             }
-        });
+        });*/
 
         //make reference of the connectivity manager so I can check the netwrok status
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -108,5 +114,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
         //Reset Loader so that we can clear out existing data
+        mAdapter.clear();
     }
 }
