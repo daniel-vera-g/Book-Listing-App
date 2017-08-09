@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -67,7 +68,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
         //find Textview with the view ID publishedDate
         TextView publishedDate = (TextView) listItemView.findViewById(R.id.publishedDate);
         //Display the published date of the current Book in that Textview
-        publishedDate.setText(currentBook.getmAuthor());
+        publishedDate.setText(currentBook.getmPublishedDate());
 
         //find Textview with the view ID numberPages
         TextView numberOfPages = (TextView) listItemView.findViewById(R.id.pageCount);
