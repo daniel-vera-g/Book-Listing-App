@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="This are the number of pages of the Book" />
+
     </LinearLayout>
     
     <Button

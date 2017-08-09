@@ -68,7 +68,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
         //find Textview with the view ID numberPages
         TextView numberOfPages = (TextView) listItemView.findViewById(R.id.pageCount);
         //Display the number of pages of the current Book in that Textview
-        numberOfPages.setText(currentBook.getmNumberOfPages());
+        numberOfPages.setText(String.valueOf(currentBook.getmNumberOfPages()));
 
         return listItemView;
     }

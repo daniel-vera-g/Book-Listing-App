@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * Variables
      * */
     //url to make the request to
-    public static final String REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=1";
+    public static final String REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=5";
     //static int to uniquely verify the loader
     public static final int OPERATION_SEARCH_LOADER = 1;
     //Adapter for the list of Books
