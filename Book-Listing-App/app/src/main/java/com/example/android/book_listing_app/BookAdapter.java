@@ -45,7 +45,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
         View listItemView = convertView;
         if (listItemView == null){
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.booklist_activity, parent, false);
+                    R.layout.list_item, parent, false);
         }
         //find Book at the given position at the list of Books
         Book currentBook = getItem(position);
