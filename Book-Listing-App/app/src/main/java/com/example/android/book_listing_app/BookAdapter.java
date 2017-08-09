@@ -55,11 +55,6 @@ public class BookAdapter extends ArrayAdapter<Book> {
         //Display the Title of the current Book in that Textview
         title.setText(currentBook.getmTitle());
 
-        //find Textview with the view ID subtitle
-        TextView subtitle = (TextView) listItemView.findViewById(R.id.subtitle);
-        //Display the subtitle of the current Book in that Textview
-        subtitle.setText(currentBook.getmSubtitle());
-
         //find Textview with the view ID author
         TextView author = (TextView) listItemView.findViewById(R.id.authors);
         //Display the author of the current Book in that Textview

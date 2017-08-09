@@ -25,16 +25,14 @@ public class Book {
     /**
      *
      * @param author
-     * @param Title
-     * @param subtitle
+     * @param title
      * @param publishedDate
      * @param numberPages
      * @param previewLink
      */
-    public Book(String author, String Title, String subtitle, String publishedDate, int numberPages, String previewLink){
+    public Book(String author, String title, String publishedDate, int numberPages, String previewLink){
         mAuthor = author;
-        mTitle = Title;
-        mSubtitle = subtitle;
+        mTitle = title;
         mPublishedDate = publishedDate;
         mNumberOfPages = numberPages;
         mPreviewLink = previewLink;
@@ -54,14 +52,6 @@ public class Book {
      */
     public String getmTitle() {
         return mTitle;
-    }
-
-    /**
-     *
-     * @return subtitile of the book
-     */
-    public String getmSubtitle() {
-        return mSubtitle;
     }
 
     /**

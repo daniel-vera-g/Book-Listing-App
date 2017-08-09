@@ -3,6 +3,7 @@ package com.example.android.book_listing_app;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
         //parse the response
         //extract a list of booksx  
         List<Book> books = QueryUtils.fetchBookData(mUrl);
+        Log.v(LOG_TAG, "The book information is : " + books);
         return books;
     }
 }

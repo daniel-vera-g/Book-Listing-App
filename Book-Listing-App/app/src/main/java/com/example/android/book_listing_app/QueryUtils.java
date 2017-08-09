@@ -212,8 +212,6 @@ public class QueryUtils {
 
                 //extract the title of the book
                 String title = VolumeInfo.getString("title");
-                //extract the subtitle
-                String subtitle = VolumeInfo.getString("subtitle");
 
                 //extract the Array with the Name of the Author or authors
                 JSONArray authors = VolumeInfo.getJSONArray("authors");
@@ -228,7 +226,6 @@ public class QueryUtils {
                 //save list of auhtors in from ArrayList into single Strings to give it as parameter in the Book Object Invocation
                 String author = TextUtils.join(", ", listOfAuthors);
 
-
                 //extract the published Date
                 String publishedDate = VolumeInfo.getString("publishedDate");
                 //extract the number of pages
@@ -237,7 +234,7 @@ public class QueryUtils {
                 String previewLink = VolumeInfo.getString("previewLink");
 
                 //Create a new Book Object to store the values in
-                Book newBook = new   Book(title, subtitle, author, publishedDate, numberPages, previewLink);
+                Book newBook = new   Book(author, title, publishedDate, numberPages, previewLink);
                 books.add(newBook);
             }
 
