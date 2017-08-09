@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      * Variables
      * */
-    //log tag for the logs
-    private static final String LOG_TAG = MainActivity.class.getName();
-    //static int to uniquely verify the loader
-    public static final int OPERATION_SEARCH_LOADER = 1;
     //url to make the request to
     public static final String REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=1";
+    //static int to uniquely verify the loader
+    public static final int OPERATION_SEARCH_LOADER = 1;
     //Adapter for the list of Books
     public BookAdapter mAdapter;
+    //log tag for the logs
+    private static final String LOG_TAG = MainActivity.class.getName();
     //empty Textview to be displayed when there is no Internet connection
     public TextView emptyTextView;
 
@@ -53,14 +53,76 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //find a reference to the Listview in the layout
         ListView bookListView = (ListView) findViewById(R.id.list);
 
-        //TODO: define the emptytextView & set ot to the Listview
+        //define the emptytextView & set ot to the Listview
+        emptyTextView = (TextView) findViewById(R.id.empty_view);
+        bookListView.setEmptyView(emptyTextView);
 
         //create new Adapter that takes an empty list of Books as Input
         mAdapter = new BookAdapter(this, new ArrayList<Book>());
 
+        //set the adapter to the Listview
+        //This leads to the population of the user Interface
+        bookListView.setAdapter(mAdapter);
 
-        //set an itemOnClick Listener to when the user push the button
-        //This leads to a request to the browser with the query and  list ob Books as a response
+        //TODO: Implement the On Click listener for the Search button as well as the onlick listener for the preview link button
+
+
+        //make reference of the connectivity manager so I can check the netwrok status
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        //get details about the current network status
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+
+        //check for connection and then fetch data
+        if (networkInfo != null && networkInfo.isConnected()){
+            //get a reference of the loader manager
+            LoaderManager loaderManager = getLoaderManager();
+
+            //Initialize the loader
+            loaderManager.initLoader(OPERATION_SEARCH_LOADER, null, this);
+        }else {
+            //if there is no internet connection avalaible display en erro
+            //TODO: Implement a loading indicatorn and set an empty textView to get the user know that there is no internet connection
+
+            //update empty state with no connection erro message
+            Log.v(LOG_TAG, "There is no internet connection");
+            emptyTextView.setText(R.string.noConnection);
+        }
+    }
+
+    @Override
+    public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
+        //create a new loader for the given url
+        return new BookLoader(this, REQUEST_URL);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Book>> loader, List<Book> books) {
+        //TODO: Make a loading indicator until data has loaden
+
+        //empty textview when there are no Books
+        Log.v(LOG_TAG, "Empty Text View will be set");
+        emptyTextView.setText(R.string.noConnection);
+        Log.v(LOG_TAG, "The empty textview was not set");
+        //Clear the adapter
+        mAdapter.clear();
+        //If there is a valid List of Books add them to the adapter
+        // and update the listview
+        if (books != null && !books.isEmpty()){
+            mAdapter.addAll(books);
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Book>> loader) {
+        //Reset Loader so that we can clear out existing data
+        mAdapter.clear();
+    }
+}
+
+//set an itemOnClick Listener to when the user push the button
+//This leads to a request to the browser with the query and  list ob Books as a response
 
         /*bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -71,49 +133,3 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             }
         });*/
-
-        //make reference of the connectivity manager so I can check the netwrok status
-        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        //get details about the current network status
-        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
-        //check for connection and then fetch data
-        if (networkInfo != null && networkInfo.isConnected()){
-            //get a reference of the loader manager
-            Log.v(LOG_TAG, "LOG: The loader manager will start");
-            LoaderManager loaderManager = getLoaderManager();
-
-            //Initialize the loader
-            loaderManager.initLoader(OPERATION_SEARCH_LOADER, null, this);
-        }else {
-            //if there is no internet connection avalaible display en erro
-            //TODO: Implement a loading indicatorn and set an empty textView to get the user know that there is no internet connection
-        }
-        //set the adapter to the Listview
-        //This leads to the population of the user Interface
-        bookListView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
-        //create a new loader for the given url
-        return new BookLoader(this, REQUEST_URL);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
-        //TODO: Make a loading indicator until data has loaden
-
-        //TODO: Make empty textview when there are no Earthwuakes
-
-        //TODO: Clear the adapter
-
-        //TODO: If there is a valid List of Books add them to the adapter and update the listview
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Book>> loader) {
-        //Reset Loader so that we can clear out existing data
-        mAdapter.clear();
-    }
-}
