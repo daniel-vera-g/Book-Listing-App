@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.booklist_activity);
+        setContentView(R.layout.search_activity);
 
         //find a reference to the Listview in the layout
         ListView bookListView = (ListView) findViewById(R.id.list);
