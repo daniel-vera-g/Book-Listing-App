@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * */
     //url to make the request to
     public static final String REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=5";
+    //public static final String REQUEST_URL = "";
     //static int to uniquely verify the loader
     public static final int OPERATION_SEARCH_LOADER = 1;
     //Adapter for the list of Books
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_activity);
+        setContentView(R.layout.booklist_activity);
 
         //find a reference to the Listview in the layout
         ListView bookListView = (ListView) findViewById(R.id.list);
@@ -60,11 +61,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //create new Adapter that takes an empty list of Books as Input
         mAdapter = new BookAdapter(this, new ArrayList<Book>());
 
-        //set the adapter to the Listview
-        //This leads to the population of the user Interface
-        bookListView.setAdapter(mAdapter);
 
         //TODO: Implement the On Click listener for the Search button as well as the onlick listener for the preview link button
+        //set an itemOnClick Listener to when the user push the button
+        //This leads to a request to the browser with the query and  list ob Books as a response
+
+                bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //find the Button in the Layout
+                        Button requestButon = (Button) findViewById(R.id.searchButton);
+                        //set the adapter to the Listview
+                        //This leads to the population of the user Interface
+                        bookListView.setAdapter(mAdapter);
+                    }
+                });
 
 
         //make reference of the connectivity manager so I can check the netwrok status
@@ -121,15 +132,3 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 }
 
-//set an itemOnClick Listener to when the user push the button
-//This leads to a request to the browser with the query and  list ob Books as a response
-
-        /*bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //find the Button in the Layout
-                Button requestButon = (Button) findViewById(R.id.searchButton);
-
-
-            }
-        });*/
